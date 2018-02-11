@@ -21,4 +21,10 @@ public class ProjectileMovement : MonoBehaviour {
     public void setTargetPos(Vector3 newTarget) {
         targetPos = newTarget;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("LimitOfMap")) {
+            Destroy(this);
+        }
+    }
 }

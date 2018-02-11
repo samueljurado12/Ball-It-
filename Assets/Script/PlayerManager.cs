@@ -7,28 +7,51 @@ using UnityEngine;
 //This class controls messages between player input and projectile movement
 public class PlayerManager : MonoBehaviour {
 
+    public ProjectileMovement projectilePrefab;
+
     private CharacterMovement player;
     private ProjectileMovement projectile;
     private float shotDistance; //TODO think another variable name
+    private Vector3 direction;
 
 	// Use this for initialization
 	void Start () {
         player = gameObject.GetComponentInChildren<CharacterMovement>();
-        projectile = gameObject.GetComponentInChildren<ProjectileMovement>();
         shotDistance = 5f;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //Debug.Log(player.transform.position);
-        //Debug.Log(projectile.transform.position);
+
+    public void shotFired(Vector3 movementDir) { // TODO Revise function using pointers (IEnumerator)
+        if (projectile) {
+            projectile.setTargetPos(calculateSecondShotPosProjectile(player.transform.position, projectile.transform.position));
+        } else {
+            direction = movementDir;
+            projectile = Instantiate(projectilePrefab, player.transform);
+            projectile.transform.SetParent(this.transform);
+            Invoke("setProjectileTarget", Time.deltaTime);
+        }
+    }
+    private void setProjectileTarget() {
+        projectile.setTargetPos(calculateFirstShotPosProjectile(direction));
     }
 
-    public void shotFired() {
-        projectile.setTargetPos(calculateTargetPosProjectile(player.transform.position, projectile.transform.position));
+    private Vector3 calculateFirstShotPosProjectile(Vector3 direction) {
+        Vector3 finalPos = Vector3.zero;
+        
+        float normaRefVector = direction.magnitude;
+        float dx2 = 0;
+        float dy2 = 0;
+        if (normaRefVector != 0) { 
+            dx2 = (shotDistance * direction.x) / normaRefVector;
+            dy2 = (shotDistance * direction.y) / normaRefVector;
+        }
+
+        finalPos.x = projectile.transform.position.x + dx2;
+        finalPos.y = projectile.transform.position.y + dy2;
+
+        return finalPos;
     }
 
-    private Vector3 calculateTargetPosProjectile(Vector3 playerPos, Vector3 projectilePos) {
+    private Vector3 calculateSecondShotPosProjectile(Vector3 playerPos, Vector3 projectilePos) {
         Vector3 targetPosition = Vector3.zero;
         
         //Calculate magnitude of Vector from projectile start position over player position

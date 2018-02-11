@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour {
 
+    // TODO Add direction as variable, pass it to playerMngr when shot
+
     private float currentSpeed, movementSpeed, dashSpeed, cdDash, cdShot; // TODO ORGANIZATION!!!
     private bool canDash, canShot;
     private PlayerManager playerMngr;
     private string playerNumber;
+    private Vector3 movementDir;
 
 	// Use this for initialization
 	void Start () {
+        movementDir = Vector3.zero;
         movementSpeed = 13;
         dashSpeed = 1.5f * movementSpeed;
         currentSpeed = movementSpeed;
@@ -25,7 +29,6 @@ public class CharacterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(playerNumber);
         move();
         dash();
         shoot();
@@ -33,17 +36,21 @@ public class CharacterMovement : MonoBehaviour {
 
     // Basic movement of the player (NF)
     private void move() {
-        String verticalAxis = "Vertical" + playerNumber; // TODO change inline def to auto player assignment 
-        String horizontalAxis = "Horizontal" + playerNumber; // TODO change inline def to auto player assignment
+        movementDir = getPlayerDirection();
+        transform.Translate(movementDir * currentSpeed * Time.deltaTime);
+    }
+
+    private Vector3 getPlayerDirection() {
+        String verticalAxis = "Vertical" + playerNumber;
+        String horizontalAxis = "Horizontal" + playerNumber;
         Vector3 vertical = Vector3.up * Input.GetAxis(verticalAxis);
         Vector3 horizontal = Vector3.right * Input.GetAxis(horizontalAxis);
-
-        transform.Translate((vertical + horizontal) * currentSpeed * Time.deltaTime);
+        return vertical + horizontal;
     }
 
     // Dash function (NF)
-    private void dash() {
-        if (Input.GetAxis("Trigger" + playerNumber) > 0 && canDash) { // TODO change inline def to auto player assignment
+    private void dash() { // TODO Add invulnerability during dash
+        if (Input.GetAxis("Trigger" + playerNumber) > 0 && canDash) { 
             canDash = false;
             currentSpeed = dashSpeed;
             Invoke("resetSpeed", 0.25f);
@@ -52,12 +59,11 @@ public class CharacterMovement : MonoBehaviour {
     }
 
     //Shoot function (NF)
-    private void shoot() {
-        if(Input.GetAxis("Trigger" + playerNumber) < 0 && canShot) { // TODO change inline def to auto player assignment
+    private void shoot() { 
+        if(Input.GetAxis("Trigger" + playerNumber) < 0 && canShot) {
             canShot = false;
-            playerMngr.shotFired();
+            playerMngr.shotFired(movementDir);
             Invoke("resetShot", cdShot);
-            Debug.Log("Shots fired!!");
         }
     }
 

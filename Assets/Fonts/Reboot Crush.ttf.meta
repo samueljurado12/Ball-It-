@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 115f96b7f6085f84ba282d11353663f6
+timeCreated: 1518383385
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Reboot Crush
+  fontNames:
+  - Reboot Crush
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -16,7 +16,7 @@ public class CharacterMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         movementDir = Vector3.zero;
-        movementSpeed = 13;
+        movementSpeed = 15;
         dashSpeed = 1.5f * movementSpeed;
         currentSpeed = movementSpeed;
         canDash = true;

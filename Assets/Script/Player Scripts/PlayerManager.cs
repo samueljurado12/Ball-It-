@@ -27,13 +27,21 @@ public class PlayerManager : MonoBehaviour {
             direction = movementDir;
             projectile = Instantiate(projectilePrefab, player.transform);
             projectile.transform.SetParent(this.transform);
+            projectile.gameObject.layer = setLayer(this.gameObject.tag);
             Invoke("setProjectileTarget", Time.deltaTime);
         }
     }
+
+    private int setLayer(String tag) {
+        return int.Parse(tag[tag.Length - 1].ToString()) + 7;
+    }
+
     private void setProjectileTarget() {
         projectile.setTargetPos(calculateFirstShotPosProjectile(direction));
     }
 
+
+    //TODO see if can be refactored
     private Vector3 calculateFirstShotPosProjectile(Vector3 direction) {
         Vector3 finalPos = Vector3.zero;
         

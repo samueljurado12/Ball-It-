@@ -32,9 +32,12 @@ public class CharacterMovement : MonoBehaviour {
         move();
         dash();
         shoot();
+        if (Input.GetButtonDown("Start" + playerNumber)) {
+            Debug.Log(playerNumber + " wants to pause.");
+        }
     }
 
-    // Basic movement of the player (NF)
+    // Basic movement of the player
     private void move() {
         movementDir = getPlayerDirection();
         transform.Translate(movementDir * currentSpeed * Time.deltaTime);
@@ -58,7 +61,7 @@ public class CharacterMovement : MonoBehaviour {
         }
     }
 
-    //Shoot function (NF)
+    //Shoot function
     private void shoot() { 
         if(Input.GetAxis("Trigger" + playerNumber) < 0 && canShot) {
             canShot = false;
@@ -89,5 +92,13 @@ public class CharacterMovement : MonoBehaviour {
         return index;
 
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        ProjectileMovement proj = collision.gameObject.GetComponent<ProjectileMovement>();
+        if (proj) {
+            //Recibe daño
+            Debug.Log(playerMngr.tag + ": me hisiste daño");
+            Destroy(proj.gameObject);
+        }
+    }
 }

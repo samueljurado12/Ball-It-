@@ -18,5 +18,5 @@ It is a local, multiplayer, competitive, FFA game based in three basic mechanics
 This game is currently in a very early stage of development, no assets yet, neither sound. I work in it in my free time, focusing on
 the coding more than the art. Everything will be totally uploaded as this is for my personal portfolio and for practice.
 
-## Suggestions and Advices
+## Suggestions, Advices and collaboration
 You can open an issue or send me a message on [Twitter](https://twitter.com/SJuradoQ_Soft)

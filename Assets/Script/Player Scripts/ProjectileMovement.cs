@@ -6,11 +6,13 @@ public class ProjectileMovement : MonoBehaviour {
 
     private Vector3 targetPos;
     private float step;
+    private AudioSource shootAudio;
 
     // Use this for initialization
     void Start() {
         targetPos = this.transform.position;
         step = 1.5f;
+        shootAudio = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,10 +23,10 @@ public class ProjectileMovement : MonoBehaviour {
 
     public void setTargetPos(Vector3 newTarget) {
         targetPos = newTarget;
+        shootAudio.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log("Hola, me estoy chocando.");
         if (collision.gameObject.CompareTag("LimitOfMap")) {
             Destroy(this.gameObject);
         }

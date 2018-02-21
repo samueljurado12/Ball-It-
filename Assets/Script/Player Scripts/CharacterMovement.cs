@@ -32,9 +32,6 @@ public class CharacterMovement : MonoBehaviour {
         move();
         dash();
         shoot();
-        if (Input.GetButtonDown("Start" + playerNumber)) {
-            Debug.Log(playerNumber + " wants to pause.");
-        }
     }
 
     // Basic movement of the player

@@ -19,4 +19,4 @@ This game is currently in a very early stage of development, no assets yet, neit
 the coding more than the art. Everything will be totally uploaded as this is for my personal portfolio and for practice.
 
 ## Suggestions, Advices and collaboration
-You can open an issue or send me a message on [Twitter](https://twitter.com/SJuradoQ_Soft)
+You can open an issue or send me a message on [Twitter](https://twitter.com/SJuradoQ)

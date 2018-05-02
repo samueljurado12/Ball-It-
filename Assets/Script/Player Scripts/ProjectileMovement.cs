@@ -8,17 +8,20 @@ public class ProjectileMovement : MonoBehaviour {
     private float step;
     private AudioSource shootAudio;
 
+    private float damage;
+
     // Use this for initialization
     void Start() {
         targetPos = this.transform.position;
         step = 1.5f;
         shootAudio = gameObject.GetComponent<AudioSource>();
+        damage = 50;
     }
 
     // Update is called once per frame
     void Update() {
         this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, step);
-        checkPos();// TODO take a look to colliders not working well
+        checkPos();
     }
 
     public void setTargetPos(Vector3 newTarget) {
@@ -39,5 +42,13 @@ public class ProjectileMovement : MonoBehaviour {
         if (xPos < 0 || yPos < 0 || xPos > 20 || yPos > 20) {
             Destroy(this.gameObject, 0.05f);
         }
+    }
+
+    public void setSprite(Sprite sprite) {
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 }

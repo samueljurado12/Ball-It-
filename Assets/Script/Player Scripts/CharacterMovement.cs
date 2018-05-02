@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour {
 
-    // TODO Add direction as variable, pass it to playerMngr when shot
-
-    private float currentSpeed, movementSpeed, dashSpeed, cdDash, cdShot; // TODO ORGANIZATION!!!
+    private float currentSpeed, movementSpeed, dashSpeed;
+    private float cdDash, cdShot;
     private bool canDash, canShot;
     private PlayerManager playerMngr;
     private string playerNumber;
     private Vector3 movementDir;
+    private UIManager guiManager;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +24,7 @@ public class CharacterMovement : MonoBehaviour {
         cdDash = 5;
         cdShot = 0.75f;
         playerMngr = gameObject.GetComponentInParent<PlayerManager>();
+        guiManager = gameObject.GetComponentInParent<UIManager>();
         playerNumber = getPlayerNumber(playerMngr.tag);
     }
 	
@@ -32,6 +33,7 @@ public class CharacterMovement : MonoBehaviour {
         move();
         dash();
         shoot();
+        guiManager.updateGUI(canDash);
     }
 
     // Basic movement of the player
@@ -90,12 +92,11 @@ public class CharacterMovement : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        ProjectileMovement proj = collision.gameObject.GetComponent<ProjectileMovement>();
-        if (proj) {
-            //Recibe daño
-            Debug.Log(playerMngr.tag + ": me hisiste daño");
-            Destroy(proj.gameObject);
-        }
+    public void setSprite(Sprite sprite) {
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
+
+
 }
+
+
